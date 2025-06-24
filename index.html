@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Prompts para IA Gratis | ChatGPT, Claude, Gemini</title>
+    <meta name="description" content="Genera prompts optimizados para ChatGPT, Claude y otras IAs. Herramienta gratuita con categorías profesionales. ¡Mejora tus resultados de IA al instante!">
+    <meta name="keywords" content="generador prompts IA, ChatGPT prompts, prompts inteligencia artificial, IA gratis, prompts profesionales">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0c0c0c 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Espacio para Anuncio Header */
+        .ad-header {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Generator Card */
+        .generator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .generator-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        select, textarea, input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, textarea:focus, input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+        }
+
+        /* Arreglar opciones del select */
+        select option {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 0.5rem;
+        }
+
+        select option:checked {
+            background: #4ecdc4;
+            color: #000000;
+        }
+
+        /* Placeholder para textareas */
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Result Area */
+        .result-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .copy-btn {
+            background: rgba(78, 205, 196, 0.2);
+            border: 1px solid #4ecdc4;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: #4ecdc4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(78, 205, 196, 0.3);
+        }
+
+        .result-text {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Sidebar with Examples */
+        .layout-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .examples-sidebar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .examples-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #4ecdc4;
+        }
+
+        .example-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .example-item:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Espacio para Anuncio Lateral */
+        .ad-sidebar {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 5rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Espacio para Anuncio Footer */
+        .ad-footer {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .layout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .examples-sidebar {
+                order: -1;
+                position: relative;
+                top: auto;
+            }
+            
+            .generator-card {
+                padding: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top: 3px solid #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">🤖 PromptGenius</a>
+            <ul class="nav-links">
+                <li><a href="#generator">Generador</a></li>
+                <li><a href="#ejemplos">Ejemplos</a></li>
+                <li><a href="#tips">Tips</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Espacio Anuncio Header -->
+    <div class="ad-header">
+        <!-- Aquí irá el código de Adsterra - Banner Header 728x90 -->
+        <p>📢 Espacio Publicitario - Banner Superior</p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Generador de Prompts para IA</h1>
+        <p>Crea prompts profesionales y optimizados para ChatGPT, Claude, Gemini y más. Obtén mejores resultados de la inteligencia artificial con prompts estructurados y efectivos.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="layout-container">
+        <!-- Generator -->
+        <main class="generator-container">
+            <div class="generator-card">
+                <div id="promptForm">
+                    <div class="form-group">
+                        <label for="category">Categoría del Prompt:</label>
+                        <select id="category" required>
+                            <option value="">Selecciona una categoría...</option>
+                            <option value="escritura">📝 Escritura y Contenido</option>
+                            <option value="marketing">📈 Marketing y Ventas</option>
+                            <option value="codigo">💻 Programación y Código</option>
+                            <option value="negocio">💼 Negocios y Estrategia</option>
+                            <option value="educacion">🎓 Educación y Aprendizaje</option>
+                            <option value="creativo">🎨 Creatividad y Arte</option>
+                            <option value="analisis">📊 Análisis y Datos</option>
+                            <option value="personal">👤 Desarrollo Personal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objective">¿Qué quieres lograr?</label>
+                        <textarea 
+                            id="objective" 
+                            rows="3" 
+                            placeholder="Ej: Escribir un artículo sobre inteligencia artificial para principiantes..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tone">Tono y Estilo:</label>
+                        <select id="tone">
+                            <option value="profesional">Profesional</option>
+                            <option value="casual">Casual y Amigable</option>
+                            <option value="creativo">Creativo y Original</option>
+                            <option value="tecnico">Técnico y Detallado</option>
+                            <option value="persuasivo">Persuasivo</option>
+                            <option value="educativo">Educativo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="length">Longitud del contenido:</label>
+                        <select id="length">
+                            <option value="corto">Corto (1-2 párrafos)</option>
+                            <option value="medio">Medio (3-5 párrafos)</option>
+                            <option value="largo">Largo (6+ párrafos)</option>
+                            <option value="detallado">Muy detallado</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="generate-btn" id="generateBtn">
+                        ✨ Generar Prompt Optimizado
+                    </button>
+                </div>
+
+                <!-- Loading Animation -->
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Generando tu prompt optimizado...</p>
+                </div>
+
+                <!-- Result Container -->
+                <div class="result-container" id="resultContainer" style="display: none;">
+                    <div class="result-header">
+                        <h3>🎯 Tu Prompt Optimizado:</h3>
+                        <button class="copy-btn" id="copyBtn">📋 Copiar</button>
+                    </div>
+                    <div class="result-text" id="resultText"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar with Examples and Ad -->
+        <aside class="examples-sidebar">
+            <!-- Espacio Anuncio Lateral -->
+            <div class="ad-sidebar">
+                <!-- Aquí irá el código de Adsterra - Banner Lateral 300x250 -->
+                <p>📢 Anuncio</p>
+                <p>300x250</p>
+            </div>
+
+            <h3 class="examples-title">💡 Ejemplos de Prompts</h3>
+            
+            <div class="example-item">
+                <strong>Escritura:</strong> "Actúa como un escritor profesional y crea un artículo de 800 palabras sobre..."
+            </div>
+            
+            <div class="example-item">
+                <strong>Marketing:</strong> "Eres un experto en marketing digital. Crea una estrategia de contenido para..."
+            </div>
+            
+            <div class="example-item">
+                <strong>Código:</strong> "Como desarrollador senior, ayúdame a crear una función en Python que..."
+            </div>
+            
+            <div class="example-item">
+                <strong>Análisis:</strong> "Analiza los siguientes datos y proporciona insights clave sobre..."
+            </div>
+
+            <!-- Espacio Anuncio Lateral 2 -->
+            <div class="ad-sidebar" style="margin-top: 2rem;">
+                <!-- Aquí irá otro código de Adsterra -->
+                <p>📢 Anuncio</p>
+                <p>300x600</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Espacio Anuncio Footer -->
+            <div class="ad-footer">
+                <!-- Aquí irá el código de Adsterra - Banner Footer 728x90 -->
+                <p>📢 Espacio Publicitario - Banner Inferior</p>
+            </div>
+            
+            <p>&copy; 2025 PromptGenius. Herramienta gratuita para generar prompts de IA.</p>
+            <p>Optimiza tus resultados con ChatGPT, Claude, Gemini y más.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Base de datos de templates por categoría
+        const promptTemplates = {
+            escritura: [
+                "Actúa como un {tono} escritor profesional. {objetivo} Estructura el contenido en {longitud} con introducción clara, desarrollo detallado y conclusión impactante. Incluye ejemplos prácticos y utiliza un lenguaje {tono}.",
+                "Eres un copywriter experto en {tono} contenido. Tu tarea es {objetivo} Crea un texto {longitud} que enganche desde la primera línea, mantenga el interés y termine con una llamada a la acción convincente.",
+                "Como especialista en contenido {tono}, necesito que {objetivo} Desarrolla el tema de manera {longitud}, utilizando storytelling cuando sea apropiado y manteniendo un tono {tono} durante todo el texto.",
+                "Actúa como editor y escritor profesional. {objetivo} El contenido debe ser {longitud}, bien estructurado y con un enfoque {tono}. Incluye subtítulos, bullets points si es necesario y ejemplos relevantes."
+            ],
+            marketing: [
+                "Eres un estratega de marketing digital con 10 años de experiencia. {objetivo} Desarrolla una estrategia {longitud} con enfoque {tono}, incluyendo métricas de éxito, audiencia objetivo y tácticas específicas.",
+                "Actúa como un growth hacker experto. Tu misión es {objetivo} Crea un plan {longitud} con tono {tono} que incluya canales de adquisición, técnicas de conversión y estrategias de retención.",
+                "Como consultor de marketing {tono}, necesito que {objetivo} Proporciona una respuesta {longitud} con insights accionables, ejemplos de casos de éxito y recomendaciones específicas paso a paso.",
+                "Eres un experto en marketing de contenidos. {objetivo} Desarrolla una estrategia {longitud} con enfoque {tono} que incluya calendario editorial, tipos de contenido y métricas de engagement."
+            ],
+            codigo: [
+                "Actúa como un desarrollador senior con expertise en múltiples lenguajes. {objetivo} Proporciona una solución {longitud} con código {tono}, incluyendo comentarios explicativos, mejores prácticas y consideraciones de rendimiento.",
+                "Eres un arquitecto de software experimentado. Tu tarea es {objetivo} Desarrolla una respuesta {longitud} con enfoque {tono}, incluyendo estructura del código, patrones de diseño y documentación clara.",
+                "Como tech lead experto, necesito que {objetivo} Crea una solución {longitud} con estilo {tono}, explicando la lógica paso a paso, posibles optimizaciones y casos edge a considerar.",
+                "Actúa como un full-stack developer senior. {objetivo} Proporciona código {longitud} con comentarios {tono}, incluyendo setup inicial, implementación completa y testing básico."
+            ],
+            negocio: [
+                "Eres un consultor estratégico de negocios con MBA. {objetivo} Desarrolla un análisis {longitud} con perspectiva {tono}, incluyendo análisis FODA, recomendaciones estratégicas y métricas de éxito.",
+                "Actúa como un business analyst senior. Tu misión es {objetivo} Crea un reporte {longitud} con enfoque {tono} que incluya investigación de mercado, análisis competitivo y plan de acción.",
+                "Como advisor de startups experimentado, {objetivo} Proporciona insights {longitud} con tono {tono}, incluyendo validación de mercado, modelo de negocio y estrategias de crecimiento.",
+                "Eres un estratega corporativo experto. {objetivo} Desarrolla una propuesta {longitud} con perspectiva {tono}, incluyendo análisis financiero, roadmap de implementación y KPIs relevantes."
+            ],
+            educacion: [
+                "Actúa como un profesor universitario experto en pedagogía. {objetivo} Crea contenido educativo {longitud} con enfoque {tono}, incluyendo objetivos de aprendizaje claros, actividades prácticas y métodos de evaluación.",
+                "Eres un diseñador instruccional experimentado. Tu tarea es {objetivo} Desarrolla material {longitud} con tono {tono} que incluya explicaciones step-by-step, ejemplos prácticos y ejercicios de refuerzo.",
+                "Como educador {tono} especializado, necesito que {objetivo} Estructura el contenido de manera {longitud}, adaptando el nivel de complejidad y utilizando analogías cuando sea necesario.",
+                "Actúa como un tutor personal experto. {objetivo} Crea una explicación {longitud} con estilo {tono}, desglosando conceptos complejos en partes simples y proporcionando ejemplos cotidianos."
+            ],
+            creativo: [
+                "Eres un director creativo con experiencia en agencias top. {objetivo} Desarrolla conceptos {longitud} con visión {tono}, incluyendo mood boards conceptuales, referencias visuales y narrativa creativa.",
+                "Actúa como un brainstorming facilitator experto. Tu misión es {objetivo} Genera ideas {longitud} con enfoque {tono}, utilizando técnicas de pensamiento lateral y conexiones inesperadas.",
+                "Como creative strategist {tono}, necesito que {objetivo} Proporciona conceptos {longitud} que rompan patrones convencionales, incluyan elementos sorpresa y conecten emocionalmente.",
+                "Eres un innovation consultant creativo. {objetivo} Desarrolla propuestas {longitud} con perspectiva {tono}, combinando insights de usuario, tendencias culturales y tecnologías emergentes."
+            ],
+            analisis: [
+                "Actúa como un data scientist senior con expertise en analytics. {objetivo} Realiza un análisis {longitud} con enfoque {tono}, incluyendo metodología, hallazgos clave y recomendaciones basadas en datos.",
+                "Eres un analista de insights de consumidor. Tu tarea es {objetivo} Desarrolla un reporte {longitud} con perspectiva {tono}, incluyendo segmentación, behavioral patterns y oportunidades de mejora.",
+                "Como research analyst {tono}, necesito que {objetivo} Proporciona un estudio {longitud} con marco metodológico claro, análisis estadístico y conclusiones accionables.",
+                "Actúa como un business intelligence specialist. {objetivo} Crea un dashboard conceptual {longitud} con enfoque {tono}, incluyendo KPIs relevantes, visualizaciones sugeridas y insights estratégicos."
+            ],
+            personal: [
+                "Eres un life coach certificado con experiencia en desarrollo personal. {objetivo} Crea un plan {longitud} con enfoque {tono}, incluyendo autoevaluación, objetivos SMART y estrategias de implementación.",
+                "Actúa como un mentor de productividad experto. Tu misión es {objetivo} Desarrolla un sistema {longitud} con tono {tono} que incluya hábitos diarios, técnicas de time management y métricas de progreso.",
+                "Como wellness coach {tono}, necesito que {objetivo} Proporciona una guía {longitud} con enfoque holístico, incluyendo mindset, acciones específicas y sistemas de accountability.",
+                "Eres un career counselor experimentado. {objetivo} Crea un roadmap {longitud} con perspectiva {tono}, incluyendo assessment de fortalezas, plan de desarrollo y networking estratégico."
+            ]
+        };
+
+        // Modificadores por tono
+        const toneModifiers = {
+            profesional: "formal y directo",
+            casual: "amigable y conversacional", 
+            creativo: "innovador y original",
+            tecnico: "preciso y detallado",
+            persuasivo: "convincente y motivador",
+            educativo: "claro y didáctico"
+        };
+
+        // Modificadores por longitud
+        const lengthModifiers = {
+            corto: "formato conciso (1-2 párrafos)",
+            medio: "desarrollo moderado (3-5 párrafos)", 
+            largo: "análisis extenso (6+ párrafos)",
+            detallado: "exploración exhaustiva con múltiples secciones"
+        };
+
+        // Variables globales
+        let generatedPrompt = '';
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const exampleItems = document.querySelectorAll('.example-item');
+
+            // Botón generar
+            generateBtn.addEventListener('click', function() {
+                console.log('Generate button clicked!'); // Debug
+                handleGenerate();
+            });
+            
+            // Botón copiar
+            copyBtn.addEventListener('click', copyToClipboard);
+
+            // Ejemplos clickeables
+            exampleItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    copyTextToClipboard(item.textContent);
+                    showNotification('Ejemplo copiado al portapapeles! 📋');
+                });
+            });
+
+            // Agregar ejemplos aleatorios al cargar
+            loadRandomExamples();
+            
+            console.log('PromptGenius completamente cargado y funcional!');
+        });
+
+        // Función principal para generar prompt (sin form submit)
+        function handleGenerate() {
+            console.log('handleGenerate called'); // Debug
+            
+            const category = document.getElementById('category').value;
+            const objective = document.getElementById('objective').value.trim();
+            const tone = document.getElementById('tone').value;
+            const length = document.getElementById('length').value;
+
+            console.log('Form values:', { category, objective, tone, length }); // Debug
+
+            if (!category || !objective) {
+                showNotification('Por favor completa todos los campos requeridos! ⚠️');
+                return;
+            }
+
+            // Mostrar loading
+            showLoading();
+
+            // Simular procesamiento (para efecto visual)
+            setTimeout(() => {
+                try {
+                    generatedPrompt = generatePrompt(category, objective, tone, length);
+                    console.log('Generated prompt:', generatedPrompt); // Debug
+                    displayResult(generatedPrompt);
+                    hideLoading();
+                } catch (error) {
+                    console.error('Error generating prompt:', error);
+                    hideLoading();
+                    showNotification('Error al generar el prompt. Inténtalo de nuevo. ❌');
+                }
+            }, 1500);
+        }
+
+        // Generar prompt optimizado
+        function generatePrompt(category, objective, tone, length) {
+            const templates = promptTemplates[category];
+            const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+            
+            const toneText = toneModifiers[tone];
+            const lengthText = lengthModifiers[length];
+            
+            // Reemplazar variables en el template
+            let prompt = randomTemplate
+                .replace(/\{objetivo\}/g, objective)
+                .replace(/\{tono\}/g, toneText)
+                .replace(/\{longitud\}/g, lengthText);
+
+            // Agregar contexto adicional basado en la categoría
+            const contextualAddons = getContextualAddons(category, tone);
+            
+            // Estructura final del prompt
+            const finalPrompt = `${prompt}
+
+${contextualAddons}
+
+Formato de respuesta esperado:
+- Estructura clara y organizada
+- Lenguaje ${toneText}
+- Extensión: ${lengthText}
+- Incluye ejemplos o casos prácticos cuando sea relevante
+
+Comienza tu respuesta directamente con el contenido solicitado.`;
+
+            return finalPrompt;
+        }
+
+        // Complementos contextuales por categoría
+        function getContextualAddons(category, tone) {
+            const addons = {
+                escritura: "Utiliza técnicas de copywriting, headlines atractivos y storytelling cuando sea apropiado. Asegúrate de que el contenido sea engaging y mantenga la atención del lector.",
+                marketing: "Incluye datos de mercado relevantes, métricas de éxito sugeridas y considera el customer journey. Enfócate en ROI y resultados medibles.",
+                codigo: "Sigue las mejores prácticas de programación, incluye manejo de errores y considera la escalabilidad. Explica la lógica detrás de las decisiones técnicas.",
+                negocio: "Incorpora análisis de viabilidad, consideraciones de riesgo y impacto en stakeholders. Proporciona recomendaciones accionables y priorizadas.",
+                educacion: "Adapta el contenido al nivel de audiencia, incluye actividades de refuerzo y métodos de evaluación. Utiliza ejemplos relevantes y analogías efectivas.",
+                creativo: "Piensa outside the box, explora múltiples perspectivas y no tengas miedo de proponer ideas disruptivas. Incluye referencias visuales o conceptuales cuando sea útil.",
+                analisis: "Utiliza metodologías de análisis reconocidas, presenta hallazgos con visualizaciones conceptuales y proporciona conclusiones basadas en evidencia.",
+                personal: "Enfócate en resultados medibles, incluye técnicas de autoevaluación y proporciona steps concretos y realizables. Considera diferentes estilos de aprendizaje."
+            };
+            
+            return addons[category] || "Proporciona una respuesta completa y bien estructurada que cumpla con los objetivos planteados.";
+        }
+
+        // Mostrar resultado
+        function displayResult(prompt) {
+            const resultContainer = document.getElementById('resultContainer');
+            const resultText = document.getElementById('resultText');
+            
+            console.log('Displaying result:', prompt); // Debug
+            
+            resultText.textContent = prompt;
+            resultContainer.style.display = 'block';
+            
+            // Smooth scroll al resultado
+            resultContainer.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'nearest' 
+            });
+
+            // Efecto de typing simplificado (más rápido)
+            // typeText(resultText, prompt);
+        }
+
+        // Efecto de escritura gradual
+        function typeText(element, text) {
+            element.textContent = '';
+            let i = 0;
+            const speed = 20; // velocidad en ms
+
+            function typeChar() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeChar, speed);
+                }
+            }
+            
+            typeChar();
+        }
+
+        // Copiar al portapapeles
+        async function copyToClipboard() {
+            if (!generatedPrompt) {
+                showNotification('No hay prompt para copiar! 🤔');
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(generatedPrompt);
+                showNotification('¡Prompt copiado al portapapeles! 🎉');
+                
+                // Cambiar texto del botón temporalmente
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✅ ¡Copiado!';
+                copyBtn.style.background = 'rgba(46, 204, 113, 0.3)';
+                copyBtn.style.borderColor = '#2ecc71';
+                copyBtn.style.color = '#2ecc71';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = 'rgba(78, 205, 196, 0.2)';
+                    copyBtn.style.borderColor = '#4ecdc4';
+                    copyBtn.style.color = '#4ecdc4';
+                }, 2000);
+                
+            } catch (err) {
+                // Fallback para navegadores antiguos
+                copyTextToClipboard(generatedPrompt);
+            }
+        }
+
+        // Fallback para copiar texto
+        function copyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('¡Texto copiado! 📋');
+            } catch (err) {
+                showNotification('Error al copiar. Inténtalo manualmente. ❌');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Mostrar/ocultar loading
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // Sistema de notificaciones
+        function showNotification(message) {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #4ecdc4, #44a08d);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animación de entrada
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Cargar ejemplos aleatorios
+        function loadRandomExamples() {
+            const examples = [
+                {
+                    category: "Escritura",
+                    text: "Crea un artículo SEO de 1500 palabras sobre 'Tendencias de IA en 2025' con tono profesional pero accesible."
+                },
+                {
+                    category: "Marketing", 
+                    text: "Desarrolla una estrategia de content marketing para una startup fintech dirigida a millennials."
+                },
+                {
+                    category: "Código",
+                    text: "Crea una función en JavaScript que valide formularios con expresiones regulares y manejo de errores."
+                },
+                {
+                    category: "Negocio",
+                    text: "Analiza la viabilidad de lanzar un e-commerce de productos sostenibles en Latinoamérica."
+                },
+                {
+                    category: "Creatividad",
+                    text: "Genera 10 conceptos creativos para una campaña publicitaria de una app de meditación."
+                }
+            ];
+
+            // Actualizar ejemplos en el sidebar
+            const exampleItems = document.querySelectorAll('.example-item');
+            examples.forEach((example, index) => {
+                if (exampleItems[index]) {
+                    exampleItems[index].innerHTML = `<strong>${example.category}:</strong> ${example.text}`;
+                }
+            });
+        }
+
+        // Analytics tracking (simulado)
+        function trackEvent(action, category) {
+            console.log(`Event tracked: ${category} - ${action}`);
+            // Aquí se integraría Google Analytics o similar
+        }
+
+        // Auto-resize textarea
+        document.getElementById('objective').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    </script>
+</body>
+</html>
